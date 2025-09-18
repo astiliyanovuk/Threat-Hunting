@@ -1,0 +1,3 @@
+DeviceEvents 
+| where ActionType == 'PowerShellCommand' 
+| where ProcessCommandLine contains 'Invoke-WebRequest' or ProcessCommandLine contains 'IEX'
