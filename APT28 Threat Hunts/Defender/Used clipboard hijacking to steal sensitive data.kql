@@ -1,0 +1,3 @@
+DeviceProcessEvents
+| where ProcessCommandLine contains "clipboard"
+| where InitiatingProcessFileName !in~ ("explorer.exe", "notepad.exe", "winword.exe")
