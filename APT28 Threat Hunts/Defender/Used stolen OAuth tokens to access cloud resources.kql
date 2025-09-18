@@ -1,0 +1,6 @@
+IdentityLogonEvents
+| where Timestamp > ago(7d)
+| where LogonType == "RemoteInteractive"
+| where AccountDisplayName != ""
+| where Application has_any ("Microsoft Graph", "Office365", "AzureAD")
+| project Timestamp, DeviceName, AccountDisplayName, Application, LogonType
