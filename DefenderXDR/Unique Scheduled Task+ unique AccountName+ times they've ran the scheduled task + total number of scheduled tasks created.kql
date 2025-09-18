@@ -1,0 +1,13 @@
+let Detailed = DeviceProcessEvents
+| where FileName =~ "schtasks.exe"
+| where ProcessCommandLine has_any ("/create", "/change", "/delete")
+| summarize DetailedCount = count() by AccountName, ProcessCommandLine, FileName, FolderPath;
+let Summary = DeviceProcessEvents
+| where FileName =~ "schtasks.exe"
+| where ProcessCommandLine has_any ("/create", "/change", "/delete")
+| summarize ScheduledTaskCount = count() by AccountName;
+Detailed
+| join kind=inner (
+    Summary
+) on AccountName
+| order by ScheduledTaskCount desc
