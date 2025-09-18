@@ -1,0 +1,4 @@
+DeviceNetworkEvents
+| where RemoteUrl endswith ".php" or RemoteUrl contains "/gate"
+| where InitiatingProcessFileName !in~ ("chrome.exe", "firefox.exe", "msedge.exe")
+| summarize count() by DeviceName, RemoteUrl, InitiatingProcessFileName
