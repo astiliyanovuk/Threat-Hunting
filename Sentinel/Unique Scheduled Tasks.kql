@@ -1,0 +1,6 @@
+SecurityEvent
+| where EventID == 4688  // Process creation event
+| where ProcessName endswith "schtasks.exe"
+| where CommandLine has_any ("/create", "/change", "/delete")
+| summarize Count = count() by CommandLine, ProcessName, Account, Computer
+| order by Count desc
