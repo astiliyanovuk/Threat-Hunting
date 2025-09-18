@@ -1,0 +1,3 @@
+DeviceEvents 
+| where ActionType == 'WmiCommand' 
+| where ProcessCommandLine contains 'winmgmt'
