@@ -1,0 +1,3 @@
+DeviceProcessEvents
+| where FileName in~ ("wmic.exe", "WmiPrvSE.exe")
+| where ProcessCommandLine contains "process call create"
