@@ -1,0 +1,6 @@
+DeviceEvents
+| where FileName endswith ".docm" or FileName endswith ".xlsm"
+| where InitiatingProcessFileName in~ ("winword.exe", "excel.exe")
+| where ActionType == "ProcessCreated"
+| where Timestamp > ago(7d)
+| project Timestamp, DeviceName, InitiatingProcessFileName, FileName, FolderPath, ReportId
