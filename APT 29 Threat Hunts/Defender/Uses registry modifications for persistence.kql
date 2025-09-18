@@ -1,0 +1,2 @@
+DeviceRegistryEvents 
+| where RegistryKey contains 'Run' or RegistryKey contains 'Startup' | where ActionType == 'RegistryValueSet'
