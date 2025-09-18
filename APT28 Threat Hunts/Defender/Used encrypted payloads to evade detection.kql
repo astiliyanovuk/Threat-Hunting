@@ -1,0 +1,3 @@
+DeviceFileEvents
+| where FileName matches regex @".*\\[a-zA-Z0-9]{8,}\\.dll"
+| where FolderPath has_any ("AppData", "Temp")
