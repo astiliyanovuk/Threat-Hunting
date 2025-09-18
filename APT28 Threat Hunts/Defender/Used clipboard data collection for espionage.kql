@@ -1,0 +1,6 @@
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where ProcessCommandLine contains "OpenClipboard"
+    or ProcessCommandLine contains "GetClipboardData"
+| where InitiatingProcessFileName !in~ ("explorer.exe", "notepad.exe", "winword.exe")
+| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName
