@@ -1,0 +1,5 @@
+DeviceNetworkEvents
+| where RemoteUrl != ""
+| extend SNI = parse_url(RemoteUrl).Host
+| where SNI != RemoteIP
+| summarize count() by DeviceName, RemoteUrl, RemoteIP, InitiatingProcessFileName
