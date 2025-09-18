@@ -1,0 +1,6 @@
+DeviceImageLoadEvents
+| where Timestamp > ago(7d)
+| where InitiatingProcessFileName == "winlogon.exe"
+| where FileName endswith ".dll"
+| where FolderPath has_any ("AppData", "Temp", "ProgramData")
+| project Timestamp, DeviceName, InitiatingProcessFileName, FileName, FolderPath
