@@ -1,0 +1,6 @@
+DeviceProcessEvents
+| where Timestamp > ago(1d)
+| where ProcessCommandLine has_any ("FromBase64String", "System.Text.Encoding", "Invoke-Expression", "IEX", "New-Object", "DownloadString", "Invoke-WebRequest", "Invoke-RestMethod")
+| where InitiatingProcessFileName in~ ("powershell.exe", "pwsh.exe", "wscript.exe", "cscript.exe", "cmd.exe", "mshta.exe", "rundll32.exe")
+| where ProcessCommandLine has_any ("base64", "http", "https", "payload", "script", "bypass", "hidden", "windowstyle", "encodedcommand")
+| project Timestamp, DeviceName, InitiatingProcessFileName, ProcessCommandLine, FileName, AccountName
