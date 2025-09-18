@@ -1,0 +1,5 @@
+DeviceProcessEvents
+| where FileName =~ "schtasks.exe"
+| where ProcessCommandLine has_any ("/create", "/change", "/delete")
+| summarize Count = count() by ProcessCommandLine, FileName, FolderPath, AccountName
+| order by Count desc
