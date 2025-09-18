@@ -1,0 +1,13 @@
+let FrequentTasks =
+    DeviceProcessEvents
+    | where FileName =~ "schtasks.exe"
+    | where ProcessCommandLine has_any ("/create", "/change")
+    | summarize Count = count() by ProcessCommandLine
+    | where Count > 5;  // Adjust threshold as needed
+DeviceProcessEvents
+| where FileName =~ "schtasks.exe"
+| where ProcessCommandLine has_any ("/create", "/change")
+| join kind=leftanti (
+    FrequentTasks
+) on ProcessCommandLine
+| project Timestamp, DeviceName, AccountName, ProcessCommandLine
