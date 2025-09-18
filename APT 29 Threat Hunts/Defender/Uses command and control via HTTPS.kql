@@ -1,0 +1,2 @@
+DeviceNetworkEvents 
+| where RemoteUrl contains '.xyz' or RemoteUrl contains '.top' | where Protocol == 'HTTPS'
