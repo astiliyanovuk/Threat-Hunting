@@ -1,0 +1,9 @@
+DeviceNetworkEvents
+| where Timestamp > ago(1d)  // reduced time window
+| where RemoteUrl contains "."
+| where InitiatingProcessFileName !in~ ("chrome.exe", "firefox.exe", "msedge.exe", "outlook.exe")
+| extend domainLength = strlen(RemoteUrl)
+| where domainLength > 60  // long subdomains
+| summarize queryCount = count() by RemoteUrl, DeviceName, InitiatingProcessFileName
+| where queryCount > 50  // high-frequency DNS queries
+| sort by queryCount desc
