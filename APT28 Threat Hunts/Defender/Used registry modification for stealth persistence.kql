@@ -1,0 +1,3 @@
+DeviceRegistryEvents
+| where RegistryKey has @"\\Microsoft\\Windows\\CurrentVersion\\Run"
+| where ActionType == "RegistryValueSet"
